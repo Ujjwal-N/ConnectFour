@@ -9,7 +9,7 @@ import java.util.Arrays;
 import javax.swing.*;
 
 public class GraphicsTest extends JFrame {
-
+	GameBoard currentGameBoard = new GameBoard();
     public GraphicsTest() {
 
         setTitle("My Gui");
@@ -43,12 +43,19 @@ public class GraphicsTest extends JFrame {
     MouseListener listener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-        		int[] halfX = getHalfRow(columnSpacing, e.getX());
-        		int[] halfY = getHalfRow(rowSpacing, e.getY());
-        		System.out.println(halfX[0]);
-        		System.out.println(halfY[0]);
-        		circleCoords[0] = halfX[1] - 20;
-        		circleCoords[1] = halfY[1] - 20;
+        		int[] column = getHalfRow(columnSpacing, e.getX());
+        		int[] row = getHalfRow(rowSpacing, e.getY());
+        		//int lowestRow = currentGameBoard.getLowestRow(halfX[0]);
+        		Piece.Type type = Piece.Type.OPPONENT;
+        		if(color) {
+        			type = Piece.Type.MINE; 
+        		}
+        		//currentGameBoard.playMove(new Piece(type, halfX[0], lowestRow));
+        		System.out.println(column[0]);
+        		//System.out.println(lowestRow);
+        		printBoard();        		
+        		circleCoords[0] = column[1] - 20;
+        		circleCoords[1] = row[1] - 20;
         		repaint();
         }
     };
@@ -64,7 +71,7 @@ public class GraphicsTest extends JFrame {
 			int secondNum = arr[i][1];
 			if(firstNum < currentCoord && currentCoord < secondNum) {
 				currentColumn = i;
-				System.out.println("CLICKEDY CLICKEDY CLICK " + i);
+				//System.out.println("CLICKEDY CLICKEDY CLICK " + i);
 			}
 		}
 		retVar[0] = currentColumn;
@@ -144,10 +151,13 @@ public class GraphicsTest extends JFrame {
     		coords[0] = newY;
     		coords[1] = length;
     		rowSpacing[(number - 1)] = coords; 
-    		for(int[] columnSpace : columnSpacing) {
-    			System.out.println(Arrays.toString(columnSpace));
-    		}
-    		
+    		printBoard();
+    }
+    private void printBoard() {
+		
+		for(Piece[] gameBoard : currentGameBoard.getArray()) {
+			System.out.println(Arrays.toString(gameBoard));
+		}
     }
     private void drawInnerCircles(Graphics g) {
     		for(int columnCount = 0; columnCount < columnSpacing.length; columnCount++) {

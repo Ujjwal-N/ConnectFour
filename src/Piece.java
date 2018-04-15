@@ -24,4 +24,13 @@ public class Piece {
 	public Piece clone() {
 		return new Piece(getType(), getColumn(), getRow());
 	}
+	public String toString() {
+		if(this.type == Type.EMPTY) {
+			return "EMPTY";
+		}
+		if(this.type == Type.OPPONENT) {
+			return "OPPONENT";
+		}
+		return "MINE";
+	}
 }

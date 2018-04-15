@@ -13,10 +13,13 @@ public class GameBoard {
 	public void playMove(Piece piece) {
 		array[piece.getColumn()][piece.getRow()] = piece.clone();
 	}
+	public Piece[][] getArray(){
+		return array;
+	}
 	public int getLowestRow(int column) {
 		for(int i = 0; i < array[column].length; i++) {
 			Piece thisPiece = array[column][i];
-			if(thisPiece.getRow() != 5) {
+			if(i != 6) {
 				Piece nextPiece = getPieceDiff(array[column][i],0,1);
 				if(!(nextPiece.getType() == Piece.Type.EMPTY)){
 					return thisPiece.getRow();
