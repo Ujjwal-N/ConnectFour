@@ -45,13 +45,17 @@ public class GraphicsTest extends JFrame {
         public void mouseClicked(MouseEvent e) {
         		int[] column = getHalfRow(columnSpacing, e.getX());
         		int[] row = getHalfRow(rowSpacing, e.getY());
-        		//int lowestRow = currentGameBoard.getLowestRow(halfX[0]);
-        		Piece.Type type = Piece.Type.OPPONENT;
+        		int lowestRow = currentGameBoard.getLowestRow(column[0]);
+        		Piece.Type type = Piece.Type.OPPONENT;;
         		if(color) {
-        			type = Piece.Type.MINE; 
+        			type = Piece.Type.MINE;
+        			color = false;
+        		}else{
+        			color = true;
         		}
-        		//currentGameBoard.playMove(new Piece(type, halfX[0], lowestRow));
-        		System.out.println(column[0]);
+        		currentGameBoard.playMove(new Piece(type, column[0], lowestRow));
+        		
+        		//System.out.println(column[0]);
         		//System.out.println(lowestRow);
         		printBoard();        		
         		circleCoords[0] = column[1] - 20;
@@ -94,20 +98,21 @@ public class GraphicsTest extends JFrame {
         		drawRows(g, 50, 450,6);
         		//g.setColor(hex2Rgb("#91C4F2")); light blue
         		g.setColor(hex2Rgb("#EDF7F6"));
-        		drawInnerCircles(g);
+        		//drawInnerCircles(g);
         		gridDrawn = true;
     		}
-    		if(circleCoords[0] != 0) {
-    			if(color) {
-    				g.setColor(hex2Rgb("#AA4465")); //red
-    				color = false;
-    			}else {
-    				g.setColor(hex2Rgb("#F2C14E")); //yellow
-    				color = true;
+    		for(int columnCount = 0; columnCount < currentGameBoard.getArray().length; columnCount++) {
+    			for(int rowCount = 0; rowCount < currentGameBoard.getArray()[columnCount].length; rowCount++) {
+    				Piece currentPiece = currentGameBoard.getArray()[columnCount][rowCount];
+    				if(currentPiece.getType() == Piece.Type.EMPTY) {
+    					g.setColor(hex2Rgb("#EDF7F6"));
+    				}else if(currentPiece.getType() == Piece.Type.MINE) {
+    					g.setColor(hex2Rgb("#AA4465")); //red
+    				}else {
+    					g.setColor(hex2Rgb("#F2C14E")); //yellow
+    				}
+    				g.fillOval(getAverage(columnSpacing[currentPiece.getColumn()]) - 20, getAverage(rowSpacing[currentPiece.getRow()]) - 20, 40, 40);
     			}
-    			g.drawOval(circleCoords[0], circleCoords[1], 40, 40);
-			g.fillOval(circleCoords[0], circleCoords[1], 40, 40);
-    			
     		}
 
     }
