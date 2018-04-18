@@ -25,6 +25,7 @@ public class Piece {
 		return new Piece(getType(), getColumn(), getRow());
 	}
 	public String toString() {
+		//this a test comment
 		String retString = "||";
 		if(this.type == Type.EMPTY) {
 			retString += "Empty";
