@@ -14,7 +14,8 @@ public class GraphicsTest extends JFrame {
 
         setTitle("My Gui");
         setSize(500, 500);
-
+        //CHANGE
+        
         // Create JButton and JPanel
         JButton button = new JButton("Click here!");
         JPanel panel = new JPanel();
@@ -46,14 +47,20 @@ public class GraphicsTest extends JFrame {
         		int[] column = getHalfRow(columnSpacing, e.getX());
         		int[] row = getHalfRow(rowSpacing, e.getY());
         		int lowestRow = currentGameBoard.getLowestRow(column[0]);
-        		Piece.Type type = Piece.Type.OPPONENT;;
+        		Piece.Type type;
         		if(color) {
         			type = Piece.Type.MINE;
+        			currentGameBoard.playMove(new Piece(type, column[0], lowestRow));
         			color = false;
         		}else{
+        			
+        			type = Piece.Type.OPPONENT;
+        			Piece thisPiece = new Piece(type, column[0], lowestRow);
+        			currentGameBoard.updateOpponentPieceArray(thisPiece);
+        			currentGameBoard.playMove(thisPiece);
         			color = true;
         		}
-        		currentGameBoard.playMove(new Piece(type, column[0], lowestRow));
+        		
         		
         		//System.out.println(column[0]);
         		//System.out.println(lowestRow);
