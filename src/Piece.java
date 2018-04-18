@@ -25,12 +25,15 @@ public class Piece {
 		return new Piece(getType(), getColumn(), getRow());
 	}
 	public String toString() {
+		String retString = "||";
 		if(this.type == Type.EMPTY) {
-			return "EMPTY";
+			retString += "Empty";
+		}else if(this.type == Type.OPPONENT) {
+			retString += "Opponent";
+		}else {
+			retString += "Mine";
 		}
-		if(this.type == Type.OPPONENT) {
-			return "OPPONENT";
-		}
-		return "MINE";
+		retString += "|Column: " + column + "|Row: " + row + "||"; 
+		return retString;
 	}
 }
