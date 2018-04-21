@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -40,7 +41,20 @@ public class GraphicsTest extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
+    public void playMove() {
+    		int column = currentGameBoard.threatDetect();
+    		if(column == -1) {
+    			Random rand = new Random();
+        		column = rand.nextInt(6);
+    		}else {
+    			System.out.println(column);
+    		}
+    		Piece.Type type = Piece.Type.MINE;
+		currentGameBoard.playMove(new Piece(type, column, currentGameBoard.getLowestRow(column)));
+		color = false;
+		repaint();
+		
+    }
     MouseListener listener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -49,9 +63,10 @@ public class GraphicsTest extends JFrame {
         		int lowestRow = currentGameBoard.getLowestRow(column[0]);
         		Piece.Type type;
         		if(color) {
-        			type = Piece.Type.MINE;
-        			currentGameBoard.playMove(new Piece(type, column[0], lowestRow));
-        			color = false;
+//        			type = Piece.Type.MINE;
+//        			currentGameBoard.playMove(new Piece(type, column[0], lowestRow));
+//        			color = false;
+//        			System.out.println(currentGameBoard.threatDetect());
         		}else{
         			
         			type = Piece.Type.OPPONENT;
@@ -59,15 +74,17 @@ public class GraphicsTest extends JFrame {
         			currentGameBoard.updateOpponentPieceArray(thisPiece);
         			currentGameBoard.playMove(thisPiece);
         			color = true;
+        			repaint();
+        			
         		}
         		
         		
         		//System.out.println(column[0]);
         		//System.out.println(lowestRow);
-        		printBoard();        		
+        		//printBoard();        		
         		circleCoords[0] = column[1] - 20;
         		circleCoords[1] = row[1] - 20;
-        		repaint();
+        		
         }
     };
     private int getAverage(int[] arr) {
@@ -93,7 +110,7 @@ public class GraphicsTest extends JFrame {
     }
     //6 rows, 7 columns
     private Boolean gridDrawn = false;
-    private Boolean color = true;
+    private Boolean color = false;
     private int[] circleCoords = {0,0};
     public void paint(Graphics g) {
     		if(!gridDrawn) {
@@ -120,6 +137,9 @@ public class GraphicsTest extends JFrame {
     				}
     				g.fillOval(getAverage(columnSpacing[currentPiece.getColumn()]) - 20, getAverage(rowSpacing[currentPiece.getRow()]) - 20, 40, 40);
     			}
+    		}
+    		if(color) {
+    			playMove();
     		}
 
     }
@@ -166,7 +186,7 @@ public class GraphicsTest extends JFrame {
     		printBoard();
     }
     private void printBoard() {
-		
+		System.out.println();
 		for(Piece[] gameBoard : currentGameBoard.getArray()) {
 			System.out.println(Arrays.toString(gameBoard));
 		}
@@ -179,6 +199,7 @@ public class GraphicsTest extends JFrame {
     				g.fillOval((x), (y), 40, 40);
     			}
     		}
+
     }
     public static Color hex2Rgb(String colorStr) {
         return new Color(

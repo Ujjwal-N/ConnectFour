@@ -1,7 +1,7 @@
 
 public class Piece {
 	public enum Type{
-		EMPTY, OPPONENT, MINE
+		EMPTY, OPPONENT, MINE, IMAGINARY
 	}
 	private final int row;
 	private final int column;
@@ -31,10 +31,15 @@ public class Piece {
 			retString += "Empty";
 		}else if(this.type == Type.OPPONENT) {
 			retString += "Opponent";
-		}else {
+		}else if(this.type == Type.MINE){
 			retString += "Mine";
+		}else{
+			retString += "Imaginary";
 		}
 		retString += "|Column: " + column + "|Row: " + row + "||"; 
 		return retString;
+	}
+	public Boolean isReal() {
+		return (type == Piece.Type.MINE || type == Piece.Type.OPPONENT);
 	}
 }
