@@ -58,6 +58,7 @@ public class GraphicsTest extends JFrame {
     MouseListener listener = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
+        		System.out.println("MOUSE");
         		int[] column = getHalfRow(columnSpacing, e.getX());
         		int[] row = getHalfRow(rowSpacing, e.getY());
         		int lowestRow = currentGameBoard.getLowestRow(column[0]);

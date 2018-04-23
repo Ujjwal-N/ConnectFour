@@ -42,4 +42,8 @@ public class Piece {
 	public Boolean isReal() {
 		return (type == Piece.Type.MINE || type == Piece.Type.OPPONENT);
 	}
+
+	public Boolean equals(Piece otherPiece) {
+		return (type == otherPiece.getType() && row == otherPiece.getRow() && column == otherPiece.getColumn());
+	}
 }
