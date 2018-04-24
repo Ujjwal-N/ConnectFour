@@ -25,6 +25,7 @@ public class GameBoard {
 		//((Appendable) opponentPieces).append(opponentPiece.clone());
 	}
 	public void playMove(Piece piece) {
+		
 		array[piece.getColumn()][piece.getRow()] = piece.clone();
 		rowArray[piece.getRow()][piece.getColumn()] =  piece.clone();
 	}
@@ -117,7 +118,7 @@ public class GameBoard {
 				if(piece.getType() == Piece.Type.OPPONENT) {
 					pc.addPiece(piece);
 					if(piece.getColumn() == 6) {
-						//System.out.println("HEREE");
+						
 						if(pc.getArray().size() > 0) {
 							clusters.add(pc);
 						}
@@ -131,6 +132,7 @@ public class GameBoard {
 		
 			if(cluster.getArray().size() > 2) {
 				int empty = cluster.findEmpty();
+				System.out.println("HEREE");
 				if(empty != -1) {
 					return empty;
 				}
@@ -178,6 +180,56 @@ public class GameBoard {
 					
 				}
 			}
+			//LEFT-UP CONSECUTIVE CHECK
+			if(getPieceDiff(opponentPiece, -1, -1).getType() == Piece.Type.OPPONENT) {
+				if(getPieceDiff(opponentPiece, -2, -2).getType() == Piece.Type.OPPONENT) {
+					if(getPieceDiff(opponentPiece, -3, -3).getType() == Piece.Type.EMPTY) {
+						//System.out.println(getPieceDiff(opponentPiece, 1, 3).isReal());
+						if(getPieceDiff(opponentPiece, -2, -3).isReal() || getPieceDiff(opponentPiece, -3, -3).getRow() == 5) {
+							return getPieceDiff(opponentPiece, -3, -3).getColumn();
+						}
+					}
+					
+				}
+			}
+			//top, side
+			//LEFT-DOWN CONSECUTIVE CHECK
+			if(getPieceDiff(opponentPiece, 1, -1).getType() == Piece.Type.OPPONENT) {
+				if(getPieceDiff(opponentPiece, 2, -2).getType() == Piece.Type.OPPONENT) {
+					if(getPieceDiff(opponentPiece, 3, -3).getType() == Piece.Type.EMPTY) {
+						//System.out.println(getPieceDiff(opponentPiece, 1, 3).isReal());
+						if(getPieceDiff(opponentPiece, 2, -3).isReal() || getPieceDiff(opponentPiece, 3, -3).getRow() == 5) {
+							return getPieceDiff(opponentPiece, 3, -3).getColumn();
+						}
+					}
+					
+				}
+			}
+			//RIGHT-UP CONSECUTIVE CHECK
+			if(getPieceDiff(opponentPiece, -1, 1).getType() == Piece.Type.OPPONENT) {
+				if(getPieceDiff(opponentPiece, -2, 2).getType() == Piece.Type.OPPONENT) {
+					if(getPieceDiff(opponentPiece, -3, 3).getType() == Piece.Type.EMPTY) {
+						System.out.println(getPieceDiff(opponentPiece, -2, 3));
+						if(getPieceDiff(opponentPiece, -2, 3).isReal() || getPieceDiff(opponentPiece, -3, 3).getRow() == 5) {
+							return getPieceDiff(opponentPiece, -3, 3).getColumn();
+						}
+					}
+					
+				}
+			}
+			//RIGHT-DOWN CONSECUTIVE CHECK
+			if(getPieceDiff(opponentPiece, 1, 1).getType() == Piece.Type.OPPONENT) {
+				if(getPieceDiff(opponentPiece, 2, 2).getType() == Piece.Type.OPPONENT) {
+					if(getPieceDiff(opponentPiece, 3, 3).getType() == Piece.Type.EMPTY) {
+						//System.out.println(getPieceDiff(opponentPiece, 1, 3).isReal());
+						if(getPieceDiff(opponentPiece, 2, 3).isReal() || getPieceDiff(opponentPiece, 3, 3).getRow() == 5) {
+							return getPieceDiff(opponentPiece, 3, 3).getColumn();
+						}
+					}
+					
+				}
+			}
+			
 		}
 		//SIDE CENTER CHECK
 		for(Piece[] row : rowArray) {
@@ -207,4 +259,9 @@ public class GameBoard {
 		}
 		
 	}
+    void printBoard() {
+		for(Piece[] gameBoard : array) {
+			System.out.println(Arrays.toString(gameBoard));
+		}
+    }
 }

@@ -40,6 +40,7 @@ public class GraphicsTest extends JFrame {
         this.addMouseListener(listener);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
     }
     public void playMove() {
     		int column = currentGameBoard.threatDetect();
@@ -114,6 +115,33 @@ public class GraphicsTest extends JFrame {
     private Boolean color = false;
     private int[] circleCoords = {0,0};
     public void paint(Graphics g) {
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 0,  (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 1, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 1, (5 - 1)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 2, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 2, (5 - 1)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 2, (5 - 2)));
+//        
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 2, (5 - 3)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 3, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 3, (5 - 1)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 5, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 5, (5 - 1)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 5, (5 - 2)));
+    	
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 1, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 1, (5 - 1)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 2, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 2, (5 - 1)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 2, (5 - 2)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 2, (5 - 3)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 3, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 3, (5 - 1)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.OPPONENT, 3, (5 - 2)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 4, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 4, (5 - 1)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 5, (5 - 0)));
+//        currentGameBoard.playMove(new Piece(Piece.Type.MINE, 5, (5 - 1)));
     		if(!gridDrawn) {
     			g.setColor(hex2Rgb("#EDF7F6"));
     			g.fillRect(0,0,500,500);
@@ -186,7 +214,7 @@ public class GraphicsTest extends JFrame {
     		rowSpacing[(number - 1)] = coords; 
     		printBoard();
     }
-    private void printBoard() {
+    public void printBoard() {
 		System.out.println();
 		for(Piece[] gameBoard : currentGameBoard.getArray()) {
 			System.out.println(Arrays.toString(gameBoard));
