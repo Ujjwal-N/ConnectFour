@@ -128,8 +128,9 @@ public class GameBoard {
 			}
 		}
 		for(PieceCluster cluster : clusters) {
-			if(pc.getArray().size() > 2) {
-				int empty = pc.findEmpty();
+		
+			if(cluster.getArray().size() > 2) {
+				int empty = cluster.findEmpty();
 				if(empty != -1) {
 					return empty;
 				}
